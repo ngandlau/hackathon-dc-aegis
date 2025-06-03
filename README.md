@@ -18,9 +18,9 @@ Hackathon Project
 
 We use a 3-agent-architecture:
 
-• **DataAgent**: Searches for data sources relevant to the disease, public datasets, Twitter and Reddit data.
-• **AnalysisAgent**: Preprocesses & combines data sources
-• **Response Agent**: Extracts actionable insights
+* **DataAgent**: Searches for data sources relevant to the disease, public datasets, Twitter and Reddit data.
+* **AnalysisAgent**: Preprocesses & combines data sources
+* **Response Agent**: Extracts actionable insights
 
 
 ## 🚀 Quick Start
