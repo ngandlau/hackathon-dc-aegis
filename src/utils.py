@@ -1,9 +1,12 @@
+from pathlib import Path
+
 import anthropic
 import outlines
 import pandas as pd
 import requests
 from delphi_epidata import Epidata
 from dotenv import load_dotenv
+from matplotlib import pyplot as plt
 
 load_dotenv()
 
@@ -230,3 +233,19 @@ def plot_time_series(df: pd.DataFrame, column_name: str) -> None:
     plt.xticks(rotation=90)
     plt.tight_layout()
     plt.show()
+
+
+def save_plot(df: pd.DataFrame, title: str) -> None:
+    """
+    Save a plot to project_folder/data directory.
+    The JPEG can be fed to an LLM.
+    """
+    DATA_DIR = Path("data")
+
+    ax = df.plot("date", "flu_cases", figsize=(10, 6))
+    plt.xticks(rotation=45)
+    plt.title("Flu Cases Over Time (2025)")
+    plt.tight_layout()
+    plt.savefig(
+        Path(DATA_DIR, "plot.jpeg"), format="jpeg", dpi=300, bbox_inches="tight"
+    )
