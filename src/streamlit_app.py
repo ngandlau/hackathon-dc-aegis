@@ -29,19 +29,19 @@ def main():
         st.image(
             "media/scout.gif",
             caption="🕵️ Scout (Surveillance Agent)",
-            use_column_width=True,
+            use_container_width=True,
         )
     with col2:
         st.image(
             "media/aggregator.gif",
             caption="📊 Aggregator (Analysis Agent)",
-            use_column_width=True,
+            use_container_width=True,
         )
     with col3:
         st.image(
             "media/advisor.gif",
             caption="🧠 Advisor (Response Agent)",
-            use_column_width=True,
+            use_container_width=True,
         )
 
     st.markdown("---")
