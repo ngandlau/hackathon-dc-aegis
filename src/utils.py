@@ -16,12 +16,35 @@ class Claude:
 
 def fetch_flu_data_2025() -> pd.DataFrame:
     regions = ["nat"]
-    epiweeks = Epidata.range(202501, 202505)  # Year 2023 weeks 1 to 24
+    epiweeks = Epidata.range(202501, 202524)  # Year 2023 weeks 1 to 24
     response = Epidata.fluview(regions, epiweeks)
     if response["result"] != 1:
         raise Exception(f"API request failed: {response['message']}")
     df = pd.DataFrame(response["epidata"])
     return df
+
+
+def _convert_epiweek_to_date(epiweek):
+    """Convert epiweek format (YYYYWW) to a readable date"""
+    try:
+        year = int(str(epiweek)[:4])
+        week = int(str(epiweek)[4:])
+        # Simple approximation: week 1 starts around Jan 7, each week is 7 days
+        day_of_year = (week - 1) * 7 + 7
+        date = pd.to_datetime(f"{year}-01-01") + pd.Timedelta(days=day_of_year - 1)
+        return date  # Return datetime object directly
+    except:
+        return pd.NaT
+
+
+def clean_flu_data(df: pd.DataFrame) -> pd.DataFrame:
+    df_clean = df.copy()
+    df_clean["date"] = df_clean["epiweek"].apply(_convert_epiweek_to_date)
+    df_clean["flu_cases"] = df_clean["num_ili"]
+    df_clean = df_clean[["date", "flu_cases"]].copy()
+    df_clean = df_clean.sort_values("date")
+    df_clean.reset_index(drop=True, inplace=True)
+    return df_clean
 
 
 def search_cdc_datasets(term: str, limit: int = 20, offset: int = 0) -> list[dict]:
