@@ -277,7 +277,7 @@ Each recommendation should:
 
 Present your response in a table format for quick readability.
 Include a column with emoji indicating degree of urgency (red (urgent), yellow (moderate), green (low)).
-Include a column with cost with dollar emojis (1 to 3 emojis).
+Include a column with cost with dollar emojis (1 to 3 emojis), but also provide the actual dollar amount like ('10-20 Million USD').
 Create two tables, one for each stakeholder.
 don't use text dollar signs like '$' in your response.
 """
