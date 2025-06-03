@@ -29,14 +29,14 @@ def main():
         )
     with col2:
         st.image(
-            "media/aggregator.gif",
-            caption="📊 Aggregator (Analysis Agent)",
+            "media/analyst.gif",
+            caption="📊 Analyst (Analysis Agent)",
             use_container_width=True,
         )
     with col3:
         st.image(
-            "media/advisor.gif",
-            caption="🧠 Advisor (Response Agent)",
+            "media/response.gif",
+            caption="🧠 Response Agent",
             use_container_width=True,
         )
 
@@ -61,9 +61,9 @@ def main():
                     time.sleep(0.5)
                 st.success("✅ Datasets found!")
 
-                # Analysis phase (Aggregator)
-                with st.spinner("📋 Aggregator is reviewing data..."):
-                    # st.image("media/aggregator.gif", width=150)
+                # Analysis phase (analyst)
+                with st.spinner("📋 Analyst is reviewing data..."):
+                    st.image("media/analyst.gif", width=150)
                     time.sleep(0.5)
                 st.success("✅ Datasets reviewed!")
 
