@@ -6,8 +6,18 @@ authors = ["ngandlau <28842354+ngandlau@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.9,!=3.9.7,<3.13"
+pandas = "^2.2.3"
+seaborn = "^0.13.2"
+dotenv = "^0.9.9"
+streamlit = "^1.45.1"
+anthropic = "^0.52.2"
+outlines = "^0.2.3"
+delphi-epidata = "^4.1.25"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]
