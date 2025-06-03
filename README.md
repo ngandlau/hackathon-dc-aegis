@@ -1,6 +1,6 @@
-# hackathon-dc-aegis
+# AI+Expo Hackathon Project, Washington D.C. 2025
 
-## How to run the project
+## Setup & running the project
 
 Setup your local (virtual) environment:
 
