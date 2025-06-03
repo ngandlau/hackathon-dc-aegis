@@ -3,7 +3,7 @@ import time
 import pandas as pd
 import streamlit as st
 
-from utils import (
+from src.utils import (
     fetch_disease_data,
     generate_recommendations,
     save_plot,
