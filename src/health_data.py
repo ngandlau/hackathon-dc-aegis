@@ -18,7 +18,7 @@ def fetch_flu_data() -> pd.DataFrame:
 
 def mock_fetch_flu_data() -> pd.DataFrame:
     df = pd.read_csv("data/flu_clean.csv")
-    df["date"] = pd.to_datetime(df["date"]).dt.date
+    df["date"] = pd.to_datetime(df["date"])
     return df
 
 
@@ -29,7 +29,6 @@ def _clean_flu_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean = df_clean[["date", "cases"]].copy()
     df_clean = df_clean.sort_values("date")
     df_clean.reset_index(drop=True, inplace=True)
-    df_clean["date"] = df_clean["date"].dt.date
     return df_clean[["date", "cases"]]
 
 
@@ -49,4 +48,5 @@ def fetch_disease_data(
     else:
         raise ValueError(f"Invalid disease: {disease}")
 
+    df["date"] = pd.to_datetime(df["date"])
     return df[["date", "num_cases"]]
