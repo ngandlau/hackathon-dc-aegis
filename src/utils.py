@@ -1,4 +1,6 @@
+import base64
 from pathlib import Path
+from typing import Literal
 
 import anthropic
 import outlines
@@ -15,6 +17,17 @@ class Claude:
     claude_4 = "claude-sonnet-4-20250514"
     claude_3_7 = "claude-3-7-sonnet-latest"
     claude_3_5 = "claude-3-5-sonnet-latest"
+
+
+def fetch_disease_data(disease: Literal["flu", "measles"]) -> pd.DataFrame:
+    if disease == "flu":
+        df = fetch_flu_data_2025()
+        df = clean_flu_data(df)  # cols: date, cases
+        return df
+    elif disease == "measles":
+        return pd.read_csv("data/measles.csv")  # cols: date, cases
+    else:
+        raise ValueError(f"Invalid disease: {disease}")
 
 
 def fetch_flu_data_2025() -> pd.DataFrame:
@@ -43,11 +56,11 @@ def _convert_epiweek_to_date(epiweek):
 def clean_flu_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean = df.copy()
     df_clean["date"] = df_clean["epiweek"].apply(_convert_epiweek_to_date)
-    df_clean["flu_cases"] = df_clean["num_ili"]
-    df_clean = df_clean[["date", "flu_cases"]].copy()
+    df_clean["cases"] = df_clean["num_ili"]
+    df_clean = df_clean[["date", "cases"]].copy()
     df_clean = df_clean.sort_values("date")
     df_clean.reset_index(drop=True, inplace=True)
-    return df_clean
+    return df_clean[["date", "cases"]]
 
 
 def search_cdc_datasets(term: str, limit: int = 20, offset: int = 0) -> list[dict]:
@@ -126,6 +139,7 @@ def call_claude(user_message: str) -> str:
     Convenience wrapper to call the Claude.
     """
     client = anthropic.Anthropic()
+
     response = client.messages.create(
         model=Claude.claude_3_7,
         messages=[{"role": "user", "content": user_message}],
@@ -242,10 +256,57 @@ def save_plot(df: pd.DataFrame, title: str) -> None:
     """
     DATA_DIR = Path("data")
 
-    ax = df.plot("date", "flu_cases", figsize=(10, 6))
+    ax = df.plot("date", "cases", figsize=(10, 6))
     plt.xticks(rotation=45)
-    plt.title("Flu Cases Over Time (2025)")
+    plt.title("Cases Over Time")
     plt.tight_layout()
     plt.savefig(
         Path(DATA_DIR, "plot.jpeg"), format="jpeg", dpi=300, bbox_inches="tight"
     )
+
+
+def generate_recommendations(image_path: str) -> str:
+    prompt = """\
+You are a public health analyst in 2025. Based on the extracted health data (from an image), provide 3 practical and relevant recommendations for:
+	•	Public Health Officials
+	•	Government Policy Makers
+
+Each recommendation should:
+	•	Reflect current health trends and risks
+	•	Include a potential financial cost (in USD)
+
+Present your response in a table format for quick readability.
+Include a column with emoji indicating degree of urgency (red (urgent), yellow (moderate), green (low)).
+Include a column with cost with dollar emojis (1 to 3 emojis), but also provide the actual dollar amount like ('10-20 Million USD').
+Create two tables, one for each stakeholder.
+don't use text dollar signs like '$' in your response.
+"""
+
+    with open(image_path, "rb") as image_file:
+        image_data = base64.b64encode(image_file.read()).decode("utf-8")
+
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "image/jpeg",
+                            "data": image_data,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt,
+                    },
+                ],
+            }
+        ],
+    )
+    return message.content[0].text
