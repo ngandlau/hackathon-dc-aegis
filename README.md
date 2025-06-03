@@ -14,5 +14,5 @@ poetry install
 To run the streamlit app:
 
 ```
-poetry run streamlit src/streamlit_app.py
+poetry run streamlit run src/streamlit_app.py
 ```
