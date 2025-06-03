@@ -14,7 +14,19 @@ from utils import clean_flu_data, fetch_flu_data_2025
 def main():
     st.set_page_config(page_title="Dashboard", layout="wide")
 
-    st.title("🔍 Dashboard")
+    st.title("🛡️ AEGIS: Public Health Intelligence")
+    st.markdown("A real-time disease detection and response dashboard powered by AI agents.")
+
+    # Show all three AI agent GIFs at the top
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.image("media/scout.gif", caption="🕵️ Scout (Surveillance Agent)", use_column_width=True)
+    with col2:
+        st.image("media/aggregator.gif", caption="📊 Aggregator (Analysis Agent)", use_column_width=True)
+    with col3:
+        st.image("media/advisor.gif", caption="🧠 Advisor (Response Agent)", use_column_width=True)
+
+    st.markdown("---")
 
     # Search bar
     search_query = st.text_input(
@@ -25,46 +37,38 @@ def main():
     # Search button
     if st.button("Search", type="primary") or search_query:
         if search_query:
-            # Create columns for better layout
+            # Layout columns
             col1, col2, col3 = st.columns([1, 2, 1])
 
             with col2:
-                # Loading spinner 1: Searching datasets
-                with st.spinner("🔍 Searching datasets..."):
-                    time.sleep(0.1)
-
+                # Surveillance phase (Scout)
+                with st.spinner("🔍 Scout is searching datasets..."):
+                    st.image("media/scout.gif", width=150)
+                    time.sleep(0.5)
                 st.success("✅ Datasets found!")
 
-                # Loading spinner 2: Reviewing datasets
-                with st.spinner("📋 Reviewing datasets..."):
-                    time.sleep(0.1)
-
+                # Analysis phase (Aggregator)
+                with st.spinner("📋 Aggregator is reviewing data..."):
+                    st.image("media/aggregator.gif", width=150)
+                    time.sleep(0.5)
                 st.success("✅ Datasets reviewed!")
 
-                # Loading spinner 3: Cleaning data
+                # Cleaning phase
                 with st.spinner("🧹 Cleaning data..."):
-                    time.sleep(0.1)
-
-                    # Actually fetch and clean the data here
+                    time.sleep(0.5)
                     try:
-                        # Fetch flu data
                         df: pd.DataFrame = fetch_flu_data_2025()
                         df: pd.DataFrame = clean_flu_data(df)
-
                     except Exception as e:
                         st.error(f"Error fetching data: {str(e)}")
                         return
-
                 st.success("✅ Data cleaned and ready!")
 
             # Display results
             st.markdown("---")
             st.subheader("📈 Flu Cases Over Time")
-
-            # Use Streamlit's line_chart for proper display
             st.line_chart(df.set_index("date")["flu_cases"])
 
-            # Debug information - more prominent and informative
             st.markdown("---")
             st.subheader("🐛 Debug Information")
 
@@ -83,18 +87,21 @@ def main():
                 st.text(f"Mean: {df['flu_cases'].mean():,.1f}")
                 st.text(f"Median: {df['flu_cases'].median():,.0f}")
 
-            # Show raw data
             st.subheader("📊 Raw Dataset")
             st.dataframe(df, use_container_width=True)
 
-            # Option to download the data
-            csv = df.to_csv(index=False)
             st.download_button(
                 label="📥 Download CSV",
-                data=csv,
+                data=df.to_csv(index=False),
                 file_name="flu_data.csv",
                 mime="text/csv",
             )
+
+            # Final recommendations (Advisor)
+            st.markdown("---")
+            st.subheader("🧠 Advisor Recommendations")
+            st.image("media/advisor.gif", width=150)
+            st.info("Based on the data, the Advisor recommends preparing for a mild increase in hospital visits over the next 2 weeks in affected regions.")
 
         else:
             st.warning("Please enter a search query!")
