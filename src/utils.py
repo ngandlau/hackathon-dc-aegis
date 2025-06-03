@@ -148,47 +148,6 @@ def call_claude(user_message: str) -> str:
     return response.content[0].text
 
 
-def generate_recommendations(image_path: str) -> str:
-    prompt = """\
-You are a public health analyst in the year 2025. Based on the following extracted health data from an uploaded image, generate practical and tailored recommendations for the following stakeholders:
-
-- Public Health Officials,
-- Doctors and Healthcare Providers,
-- Government Policy Makers,
-
-Consider the risks, and responses. Make sure your advice is relevant for current health trends.
-"""
-
-    with open(image_path, "rb") as image_file:
-        image_data = base64.b64encode(image_file.read()).decode("utf-8")
-
-    client = anthropic.Anthropic()
-    message = client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=1024,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/jpeg",
-                            "data": image_data,
-                        },
-                    },
-                    {
-                        "type": "text",
-                        "text": prompt,
-                    },
-                ],
-            }
-        ],
-    )
-    return message.content[0].text
-
-
 def download_dataset(dataset_id: str) -> pd.DataFrame:
     """
     Download a dataset from the CDC API in CSV format.
@@ -304,3 +263,50 @@ def save_plot(df: pd.DataFrame, title: str) -> None:
     plt.savefig(
         Path(DATA_DIR, "plot.jpeg"), format="jpeg", dpi=300, bbox_inches="tight"
     )
+
+
+def generate_recommendations(image_path: str) -> str:
+    prompt = """\
+You are a public health analyst in 2025. Based on the extracted health data (from an image), provide 3 practical and relevant recommendations for:
+	•	Public Health Officials
+	•	Government Policy Makers
+
+Each recommendation should:
+	•	Reflect current health trends and risks
+	•	Include a potential financial cost (in USD)
+
+Present your response in a table format for quick readability.
+Include a column with emoji indicating degree of urgency (red (urgent), yellow (moderate), green (low)).
+Include a column with cost with dollar emojis (1 to 3 emojis).
+Create two tables, one for each stakeholder.
+don't use text dollar signs like '$' in your response.
+"""
+
+    with open(image_path, "rb") as image_file:
+        image_data = base64.b64encode(image_file.read()).decode("utf-8")
+
+    client = anthropic.Anthropic()
+    message = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=1024,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "image/jpeg",
+                            "data": image_data,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt,
+                    },
+                ],
+            }
+        ],
+    )
+    return message.content[0].text
