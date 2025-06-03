@@ -1,12 +1,10 @@
 import base64
 from pathlib import Path
-from typing import Literal
 
 import anthropic
 import outlines
-import pandas as pd
-import requests
-from delphi_epidata import Epidata
+import pandas as pd  # type: ignore
+import requests  # type: ignore
 from dotenv import load_dotenv
 from matplotlib import pyplot as plt
 
@@ -17,27 +15,6 @@ class Claude:
     claude_4 = "claude-sonnet-4-20250514"
     claude_3_7 = "claude-3-7-sonnet-latest"
     claude_3_5 = "claude-3-5-sonnet-latest"
-
-
-def fetch_disease_data(disease: Literal["flu", "measles"]) -> pd.DataFrame:
-    if disease == "flu":
-        df = fetch_flu_data_2025()
-        df = clean_flu_data(df)  # cols: date, cases
-        return df
-    elif disease == "measles":
-        return pd.read_csv("data/measles.csv")  # cols: date, cases
-    else:
-        raise ValueError(f"Invalid disease: {disease}")
-
-
-def fetch_flu_data_2025() -> pd.DataFrame:
-    regions = ["nat"]
-    epiweeks = Epidata.range(202501, 202524)  # Year 2023 weeks 1 to 24
-    response = Epidata.fluview(regions, epiweeks)
-    if response["result"] != 1:
-        raise Exception(f"API request failed: {response['message']}")
-    df = pd.DataFrame(response["epidata"])
-    return df
 
 
 def _convert_epiweek_to_date(epiweek):
@@ -51,16 +28,6 @@ def _convert_epiweek_to_date(epiweek):
         return date  # Return datetime object directly
     except:
         return pd.NaT
-
-
-def clean_flu_data(df: pd.DataFrame) -> pd.DataFrame:
-    df_clean = df.copy()
-    df_clean["date"] = df_clean["epiweek"].apply(_convert_epiweek_to_date)
-    df_clean["cases"] = df_clean["num_ili"]
-    df_clean = df_clean[["date", "cases"]].copy()
-    df_clean = df_clean.sort_values("date")
-    df_clean.reset_index(drop=True, inplace=True)
-    return df_clean[["date", "cases"]]
 
 
 def search_cdc_datasets(term: str, limit: int = 20, offset: int = 0) -> list[dict]:
@@ -145,7 +112,7 @@ def call_claude(user_message: str) -> str:
         messages=[{"role": "user", "content": user_message}],
         max_tokens=1024,
     )
-    return response.content[0].text
+    return response.content[0].text  # type: ignore
 
 
 def download_dataset(dataset_id: str) -> pd.DataFrame:
@@ -249,14 +216,13 @@ def plot_time_series(df: pd.DataFrame, column_name: str) -> None:
     plt.show()
 
 
-def save_plot(df: pd.DataFrame, title: str) -> None:
+def save_plot(df: pd.DataFrame, x="date", y="num_cases") -> None:
     """
     Save a plot to project_folder/data directory.
     The JPEG can be fed to an LLM.
     """
     DATA_DIR = Path("data")
-
-    ax = df.plot("date", "cases", figsize=(10, 6))
+    ax = df.plot(x, y, figsize=(10, 6))
     plt.xticks(rotation=45)
     plt.title("Cases Over Time")
     plt.tight_layout()
@@ -309,4 +275,4 @@ don't use text dollar signs like '$' in your response.
             }
         ],
     )
-    return message.content[0].text
+    return message.content[0].text  # type: ignore

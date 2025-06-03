@@ -1,10 +1,11 @@
 import time
 
-import pandas as pd
+import pandas as pd  # type: ignore
 import streamlit as st
 
+import src.health_data as health_data
+import src.social_media as social_media
 from src.utils import (
-    fetch_disease_data,
     generate_recommendations,
     save_plot,
 )
@@ -66,12 +67,48 @@ def main():
                     time.sleep(0.5)
                 st.success("✅ Datasets reviewed!")
 
+                # Fetching Twitter chatter
+                with st.spinner("🐦 Fetching twitter chatter..."):
+                    time.sleep(2)
+                    try:
+                        # Fetch social media data
+                        df_social = social_media.fetch_disease_data(
+                            disease=search_query
+                        )
+                    except Exception as e:
+                        st.error(f"Error fetching social media data: {str(e)}")
+                        return
+                st.success("✅ Twitter chatter fetched!")
+
+                # Cleaning Twitter chatter
+                with st.spinner("🧹 Cleaning twitter chatter..."):
+                    time.sleep(2)
+                st.success("✅ Twitter chatter cleaned!")
+
                 # Cleaning phase
                 with st.spinner("🧹 Cleaning data..."):
                     time.sleep(0.5)
                     try:
                         # Fetch flu data
-                        df: pd.DataFrame = fetch_disease_data(search_query)
+                        df_health: pd.DataFrame = health_data.fetch_disease_data(
+                            disease=search_query,
+                            mock=True,
+                        )
+                    except Exception as e:
+                        st.error(f"Error fetching data: {str(e)}")
+                        return
+                st.success("✅ Data cleaned and ready!")
+
+                # Merging
+                with st.spinner("🔄 Merging Twitter & CDC data..."):
+                    time.sleep(1)
+                    try:
+                        df_merged = pd.merge(
+                            df_health,
+                            df_social,
+                            on="date",
+                            how="left",
+                        )
                     except Exception as e:
                         st.error(f"Error fetching data: {str(e)}")
                         return
@@ -81,24 +118,21 @@ def main():
             st.markdown("---")
             st.subheader(f"📈 {search_query} Cases Over Time")
 
-            # Use Streamlit's line_chart for proper display - made smaller
-            st.line_chart(df.set_index("date")["cases"], height=300)
+            # Plot
+            chart_data = df_merged.set_index("date")[
+                ["num_cases", "social_media_value"]
+            ]
+            st.line_chart(chart_data, height=300)
 
-            # Loading spinner 4: Generating insights - moved here after graph
-            # Center the spinner using columns
+            # Generating insights
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
                 with st.spinner("🧠 Deriving actionable insights..."):
                     time.sleep(2)  # 2 second delay as requested
 
                     try:
-                        # Save the plot using save_plot function
-                        save_plot(df, f"{search_query} Cases Over Time (2025)")
-
-                        # Generate recommendations using the saved plot
+                        save_plot(df_merged, x="date", y="num_cases")
                         recommendations = generate_recommendations("data/plot.jpeg")
-
-                        # Store recommendations in session state to display later
                         st.session_state.recommendations = recommendations
 
                     except Exception as e:
@@ -118,7 +152,7 @@ def main():
 
             # Raw data at the very bottom in an expandable section
             with st.expander("📊 View Raw Dataset"):
-                st.dataframe(df, use_container_width=True)
+                st.dataframe(df_merged, use_container_width=True)
 
         else:
             st.warning("Please enter a search query!")
