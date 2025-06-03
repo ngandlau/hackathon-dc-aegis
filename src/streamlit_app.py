@@ -57,7 +57,7 @@ def main():
             with col2:
                 # Surveillance phase (Scout)
                 with st.spinner("🔍 Scout is searching datasets..."):
-                    st.image("media/scout.gif", width=150)
+                    # st.image("media/scout.gif", width=150)
                     time.sleep(0.5)
                 st.success("✅ Datasets found!")
 
@@ -72,9 +72,7 @@ def main():
                     time.sleep(2)
                     try:
                         # Fetch social media data
-                        df_social = social_media.fetch_disease_data(
-                            disease=search_query
-                        )
+                        df_social = social_media.fetch_disease_data(disease=search_query)  # fmt:skip
                     except Exception as e:
                         st.error(f"Error fetching social media data: {str(e)}")
                         return
