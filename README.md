@@ -14,13 +14,19 @@ Hackathon Project
 
 ## What is AEGIS?
 
-[AEGIS](.) automatically builds dashboards for any disease, empowering health experts to make fast & data-driven decisions.
+**AEGIS** automatically builds dashboards for any disease using heterogenous data sources, empowering health experts to make fast & data-driven decisions.
 
-We use a 3-agent-architecture:
+We leverage 3 specialized AI agents:
 
 * **DataAgent**: Searches for data sources relevant to the disease, public datasets, Twitter and Reddit data.
 * **AnalysisAgent**: Preprocesses & combines data sources
 * **Response Agent**: Extracts actionable insights
+
+| Agent | Key Tasks |
+|-------|-----------|
+| **DataAgent** | Searches for data on official health portals, Twitter/X, Reddit |
+| **AnalysisAgent** | Cleans and unifies heterogeneous datasets |
+| **ResponseAgent** | Summarizes key trends & anomalies |
 
 
 ## 🚀 Quick Start
