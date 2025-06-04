@@ -1,0 +1,134 @@
+{
+  "trends": [
+    {
+      "trends": [
+        "sore throat",
+        "covid",
+        "tested positive",
+        "stuffy nose",
+        "shortness of breath"
+      ]
+    },
+    {
+      "trends": [
+        "sore throat",
+        "COVID",
+        "tested positive",
+        "shortness of breath",
+        "stuffy nose"
+      ]
+    },
+    {
+      "trends": [
+        "sore throat",
+        "covid",
+        "tested positive",
+        "stuffy nose",
+        "shortness of breath"
+      ]
+    },
+    {
+      "trends": [
+        "COVID-19",
+        "sore throat",
+        "NB.1.8.1 variant",
+        "shortness of breath",
+        "stuffy nose"
+      ]
+    },
+    {
+      "trends": [
+        "sore throat",
+        "stuffy nose",
+        "covid",
+        "tested positive",
+        "allergies"
+      ]
+    }
+  ],
+  "sentiment": [
+    {
+      "overall_sentiment": "mixed",
+      "summary": "The tweets express a mix of positive and negative sentiments. Some people are expressing happiness, gratitude and feeling blessed, while others are complaining about sore throats, colds, COVID-19 symptoms and feeling unwell. There are a few spikes in negativity related to people being sick with sore throats, coughs, fatigue and testing positive for COVID-19. However, there are also notable positive tweets expressing joy and appreciation for friendships and upcoming birthdays.",
+      "notable_examples": [
+        "Positive: \"You make friendship so BEAUTIFUL. You handle me with so much careeeee\ud83d\ude05 I don't know how best to explain it but I am such a blessed and lucky girl.\"",
+        "Positive: \"Red eyes, stuffy nose, shaky breath but a FULL HEART. I am happy\ud83e\udd79\u2764\ufe0f It's my birthday in some weeks.\ud83d\ude05\"",
+        "Negative: \"Woke up feeling so under the weather, another day stuck in bed with a sore throat\"",
+        "Negative: \"In the ER with chest pain and shortness of breath . Not fun. Hate hospitals\"",
+        "Negative: \"Think I'm getting sick. Woke up with a sore throat and a headache Ugh\""
+      ]
+    },
+    {
+      "overall_sentiment": "negative",
+      "summary": "The tweets express a largely negative sentiment, with many people complaining of sore throats, coughs, stuffy noses, and other cold/flu-like symptoms. There are several mentions of people testing positive for COVID-19 or suspecting they have a new COVID variant. A few tweets express skepticism about COVID deaths being accurately reported. Overall, the mood is one of feeling sick, frustrated, and fatigued.",
+      "notable_examples": [
+        "Feeling so under the weather today, stuck inside with a sore throat and a never-ending supply of tea",
+        "omg I got a painful headache and sore throat + my monthly just came on \ud83d\udc94 like brooo",
+        "tested positive for covid after 5 years of never getting it",
+        "No one died from covid. They died from every other thing and then \"tested positive\" for covid. Quit hiding behind your bank account. We know the truth you won't admit."
+      ]
+    },
+    {
+      "overall_sentiment": "negative",
+      "summary": "The tweets express a largely negative sentiment, with many people complaining of sore throats, stuffy noses, coughs, and other cold/flu-like symptoms. There are mentions of a new COVID variant causing particularly bad sore throats. A few positive tweets exist about loving oneself and recovering from illness, but the overall mood is decidedly negative due to the prevalence of people feeling sick.",
+      "notable_examples": [
+        "Crying on top of a stuffy nose just ain't it .",
+        "@AkilahObviously I had that with my initial Covid infection in 2021. It was the worst sore throat I've ever had.",
+        "IF I WAKE UP TOMORROW WITH A SORE THROAT IM CRASHING OUT",
+        "New COVID variant NB.1.8.1 detected in the US (NYC, CA, WA & more), linked to hospitalization spikes in China. Symptoms include fatigue, sore throat, nausea, blurred vision & more. Stay informed, stay safe, and get boosted! \ud83d\ude37",
+        "Feeling so under the weather today, stuck inside with a sore throat and a never-ending supply of tea"
+      ]
+    },
+    {
+      "overall_sentiment": "negative",
+      "summary": "The tweets express significant concern and negativity around a new COVID-19 variant called NB.1.8.1. Many report experiencing painful sore throats, fatigue, and other cold-like symptoms. There are spikes in tweets about people testing positive recently and warnings for others to mask up again. A few express skepticism about the severity. Overall, the mood is quite negative and anxious about this new wave of infections.",
+      "notable_examples": [
+        "Not even joking my mom has had a serious cough and sore throat for the last two days",
+        "\ud83d\udea8 New COVID variant NB.1.8.1 detected in the US (NYC, CA, WA & more), linked to hospitalization spikes in China. Symptoms include fatigue, sore throat, nausea, blurred vision & more. Stay informed, stay safe, and get boosted! \ud83d\ude37 #COVID19 #NB181 #HealthAlert",
+        "\u203c\ufe0f Hey friends. If you don't want a sore throat that feels like broken glass (current variant symptom from hell), it's time to \ud83d\ude37 if you stopped. Latest c0vid wave is making its way around the world\u2026",
+        "I already had it and im Upstate! Your throat feels like a hundred razor blades cut it and you may run a fever and have a bad cough.  Mine turned into pneumonia after 7 days \ud83e\udd37\ud83c\udffe\u200d\u2640\ufe0f Negative for covid but i havent had a sore throat in 25+ years!"
+      ]
+    },
+    {
+      "overall_sentiment": "negative",
+      "summary": "The tweets express a predominantly negative sentiment, with many people complaining about being sick with symptoms like sore throat, stuffy nose, cough, fever, and fatigue. There are mentions of COVID-19, allergies, and other illnesses. A few tweets also express frustration or make jokes about their health issues. Overall, the mood is one of discomfort, annoyance, and feeling unwell.",
+      "notable_examples": [
+        "GUYS I DESPERATELY NEED TO MAKE SOME MOMEYS TO PAY MY RENT WHICH IS DUE IN 2 DAYS LMAOOOO I haven't been able to post much bc I've been busy with family and dealing with their stupid drama\ud83d\ude44 and I've been sick wifh a sore throat & an EAR INFECTION & I just got my period today\ud83d\ude14",
+        "Goodnight pretty ppl have the sweetest dreams of getting rid of a sore throat fast, uhhh, a strong pelvic floor idk, a trampoline park, funnel cake and churros but not in the same sitting, a free congo, sudan, and palestine, PEOPLE TAKING CLIMATE CHANGE SERIOUSLY and hot ppl\ud83c\udf19 \ud83d\udc95",
+        "Last 13 days:\n\nDepressive state to where i break down at work\nGot sick\nInsane sore throat\nPanic attack\nBetter from the sick\nStill dealing with throat issues but can talk again\nCan't sleep longer than 2 hours at a time due to anxiety\nCat ran away \ud83d\ude22"
+      ]
+    }
+  ],
+  "symptoms": [
+    {
+      "symptoms": [
+        "sore throat",
+        "stuffy nose",
+        "cough",
+        "fever",
+        "fatigue",
+        "shortness of breath",
+        "chest pain",
+        "headache",
+        "chills",
+        "body aches"
+      ]
+    },
+    {
+      "error": "Expecting value: line 1 column 1 (char 0)",
+      "raw_response": "Here is the result as a JSON object:\n\n{\n  \"symptoms\": [\n    \"sore throat\",\n    \"cough\", \n    \"fever\",\n    \"fatigue\",\n    \"shortness of breath\",\n    \"stuffy nose\",\n    \"chest pain\",\n    \"headache\",\n    \"nausea\"\n  ]\n}\n\nThe most commonly mentioned symptoms or health concerns in the provided tweets are sore throat, cough, fever, fatigue, shortness of breath, stuffy nose, chest pain, headache, and nausea."
+    },
+    {
+      "error": "Expecting value: line 1 column 1 (char 0)",
+      "raw_response": "Here is the JSON result with the most common symptoms extracted from the tweets:\n\n{\n  \"symptoms\": [\n    \"sore throat\",\n    \"stuffy nose\",\n    \"cough\",\n    \"fever\",\n    \"fatigue\",\n    \"headache\",\n    \"shortness of breath\",\n    \"chest pain\",\n    \"nausea\",\n    \"body aches\"\n  ]\n}"
+    },
+    {
+      "error": "Expecting value: line 1 column 1 (char 0)",
+      "raw_response": "Here are the most common symptoms mentioned in the tweets, returned as a JSON object:\n\n{\n  \"symptoms\": [\n    \"sore throat\",\n    \"cough\",\n    \"fatigue\",\n    \"fever\",\n    \"headache\",\n    \"shortness of breath\",\n    \"nausea\",\n    \"stuffy nose\",\n    \"body aches\",\n    \"loss of voice\"\n  ]\n}"
+    },
+    {
+      "error": "Expecting value: line 1 column 1 (char 0)",
+      "raw_response": "Here is the JSON output with the most common symptoms extracted from the tweets:\n\n{\n  \"symptoms\": [\n    \"sore throat\",\n    \"stuffy nose\",\n    \"cough\",\n    \"congestion\", \n    \"fever\",\n    \"headache\",\n    \"fatigue\",\n    \"shortness of breath\",\n    \"sneezing\",\n    \"body aches\",\n    \"ear infection\",\n    \"loss of smell\"\n  ]\n}"
+    }
+  ]
+}
