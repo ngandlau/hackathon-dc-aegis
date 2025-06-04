@@ -157,7 +157,7 @@ def main():
         with st.status(
             "🧠 Step 2: LLM reviewing search results...", expanded=False
         ) as status:
-            time.sleep(1.5)
+            # time.sleep(1.5)
             llm_review, relevant_ids = review_search_results(
                 simplified_search_results, user_query
             )

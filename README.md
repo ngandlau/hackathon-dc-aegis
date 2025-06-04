@@ -28,10 +28,15 @@ We leverage specialized AI agents:
 | **AnalysisAgent** | Cleans and unifies heterogeneous datasets |
 | **ResponseAgent** | Summarizes key trends & anomalies |
 
+## Demo 
+
+Data Engineer Agent: https://www.loom.com/share/273d0a2ef679444c89adb1bbef3454b8?sid=9042f992-972a-4042-b2b3-955246254372
 
 ## 🚀 Quick Start
 
-Setup your local environment. Requires `poetry` for dependency management (see https://python-poetry.org/docs/ or run `pipx install poetry` to install it).
+Setup your local environment. Requires `poetry` for dependency management (see https://python-poetry.org/docs/ or run `brew install pipx` and `pipx install poetry` to install it).
+
+Make sure to use Python >3.10.
 
 ```bash
 poetry config virtualenvs.in-project true
