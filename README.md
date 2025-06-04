@@ -11,6 +11,11 @@ Hackathon Project
 
 </div>
 
+## Live Demos
+
+Agent Demo App: https://agentdashboard.streamlit.app/
+
+Agent Demo Video: https://www.loom.com/share/273d0a2ef679444c89adb1bbef3454b8?sid=9042f992-972a-4042-b2b3-955246254372
 
 ## What is AEGIS?
 
@@ -27,10 +32,6 @@ We leverage specialized AI agents:
 | **DataAgent** | Searches for data on official health portals, Twitter/X, Reddit |
 | **AnalysisAgent** | Cleans and unifies heterogeneous datasets |
 | **ResponseAgent** | Summarizes key trends & anomalies |
-
-## Demo 
-
-Data Engineer Agent: https://www.loom.com/share/273d0a2ef679444c89adb1bbef3454b8?sid=9042f992-972a-4042-b2b3-955246254372
 
 ## 🚀 Quick Start
 
