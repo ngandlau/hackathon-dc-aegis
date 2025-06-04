@@ -11,7 +11,8 @@ from src.utils import (
     standardize_value_columns,
 )
 
-SLEEP_TIME = 0.0
+SLEEP_TIME = 1.25
+FAKE = False  # Set to True to use hardcoded recommendations
 
 
 def main():
@@ -178,17 +179,17 @@ def main():
             st.markdown("---")
 
             # AI Agents working section
-            st.markdown("### 🤖 AI Agent")
+            st.markdown("### 🤖 Agentic Workflow")
 
             # Surveillance phase (Scout)
             with st.status("🕵️ Searching datasets...", expanded=False) as status:
                 time.sleep(SLEEP_TIME * 2)
                 status.update(label="✅ Datasets found", state="complete")
 
-            # Analysis phase (Analyst)
-            with st.status("📊 Reviewing data...", expanded=False) as status:
-                time.sleep(SLEEP_TIME * 2)
-                status.update(label="✅ Data is relevant", state="complete")
+            # # Analysis phase (Analyst)
+            # with st.status("📊 Reviewing data...", expanded=False) as status:
+            #     time.sleep(SLEEP_TIME * 2)
+            #     status.update(label="✅ Data is relevant", state="complete")
 
             # Fetching Twitter chatter
             with st.status("🐦 Fetching Tweets...", expanded=False) as status:
@@ -200,39 +201,28 @@ def main():
                     st.error(f"Error fetching social media data: {str(e)}")
                     return
 
-            # Cleaning Twitter chatter
-            with st.status("🧹 Processing Tweets...", expanded=False) as status:
-                time.sleep(SLEEP_TIME * 2)
-                status.update(label="✅ Tweets processed", state="complete")
+            # # Cleaning Twitter chatter
+            # with st.status("🧹 Processing Tweets...", expanded=False) as status:
+            #     time.sleep(SLEEP_TIME * 2)
+            #     status.update(label="✅ Tweets processed", state="complete")
 
             # Health data processing
-            with st.status("📋 Processing health data...", expanded=False) as status:
+            with st.status("📋 Processing datasets...", expanded=False) as status:
                 time.sleep(SLEEP_TIME * 2)
                 try:
                     df_health: pd.DataFrame = health_data.fetch_disease_data(
                         disease=search_query,
                         mock=True,
                     )
-                    status.update(label="✅ Health data processed", state="complete")
-                except Exception as e:
-                    st.error(f"Error fetching data: {str(e)}")
-                    return
-
-            # Merging data
-            with st.status("🔄 Merging datasets...", expanded=False) as status:
-                time.sleep(SLEEP_TIME * 1)
-                try:
                     df_merged = pd.merge(
                         df_health,
                         df_social,
                         on="date",
                         how="left",
                     )
-                    status.update(
-                        label="✅ Data merged successfully!", state="complete"
-                    )
+                    status.update(label="✅ Preprocessed datasets", state="complete")
                 except Exception as e:
-                    st.error(f"Error merging data: {str(e)}")
+                    st.error(f"Error fetching data: {str(e)}")
                     return
 
             # Display results in styled container
@@ -253,7 +243,30 @@ def main():
                 time.sleep(SLEEP_TIME * 2)
                 try:
                     save_plot(df_merged, x="date", y="num_cases")
-                    recommendations = generate_recommendations("data/plot.jpeg")
+
+                    if FAKE:
+                        recommendations = """Based on the extracted health data showing a disease outbreak pattern with peak cases in February 2025 followed by a decline, here are my recommendations:
+
+## Public Health Officials
+
+| Recommendation | Urgency | Cost | Financial Impact |
+|---|---|---|---|
+| Establish enhanced surveillance system for early outbreak detection with real-time monitoring capabilities | 🔴 | 💰💰 | 15-25 Million USD |
+| Implement rapid response stockpile program including medical supplies, testing kits, and emergency personnel deployment | 🟡 | 💰💰💰 | 50-75 Million USD |
+| Develop community health worker training programs for outbreak preparedness and response in underserved areas | 🟢 | 💰 | 8-12 Million USD |
+
+## Government Policy Makers
+
+| Recommendation | Urgency | Cost | Financial Impact |
+|---|---|---|---|
+| Create national pandemic preparedness fund with dedicated budget allocation for future health emergencies | 🔴 | 💰💰💰 | 200-300 Million USD |
+| Establish cross-agency coordination framework for rapid policy implementation during health crises | 🟡 | 💰 | 5-10 Million USD |
+| Invest in healthcare infrastructure modernization including hospital capacity expansion and digital health systems | 🟡 | 💰💰💰 | 500-800 Million USD |
+
+These recommendations address the cyclical nature of disease outbreaks observed in the data, focusing on prevention, preparedness, and rapid response capabilities to minimize future public health impacts."""
+                    else:
+                        recommendations = generate_recommendations("data/plot.jpeg")
+
                     st.session_state.recommendations = recommendations
                     status.update(
                         label="✅ Response Agent: Insights generated!", state="complete"

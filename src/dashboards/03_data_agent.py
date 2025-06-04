@@ -131,7 +131,7 @@ def main():
 
         # Step 1: Search CDC Datasets
         with st.status(
-            "🔍 Step 1: Searching CDC datasets...", expanded=False
+            "🔍 Step 1: Searching publicly available datasets...", expanded=False
         ) as status:
             time.sleep(SLEEP_TIME)
             search_results: list[dict[dict[str, Any]]] = search_cdc_datasets(
@@ -157,7 +157,7 @@ def main():
         with st.status(
             "🧠 Step 2: LLM reviewing search results...", expanded=False
         ) as status:
-            time.sleep(SLEEP_TIME)
+            time.sleep(1.5)
             llm_review, relevant_ids = review_search_results(
                 simplified_search_results, user_query
             )
