@@ -42,5 +42,7 @@ poetry install
 Launch the dashboard:
 
 ```bash
-poetry run streamlit run src/streamlit_app.py
+poetry run streamlit run src/dashboard/dashboard.py
+poetry run streamlit run src/dashboard/generative_dashboard.py
+poetry run streamlit run src/dashboard/agent_dashboard.py
 ```
