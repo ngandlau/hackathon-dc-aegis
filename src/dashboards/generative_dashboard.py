@@ -16,7 +16,7 @@ SLEEP_TIME = 0.0
 
 def main():
     st.set_page_config(
-        page_title="AEGIS Builder",
+        page_title="AEGIS",
         layout="wide",
         initial_sidebar_state="collapsed",
     )
@@ -141,7 +141,8 @@ def main():
     st.markdown(
         """
     <div class="main-header">
-        <h1>🛡️ Dashboard Builder</h1>
+        <h1>🛡️ Aegis</h1>
+        <h3>Dashboard Builder</h3
     </div>
     """,
         unsafe_allow_html=True,

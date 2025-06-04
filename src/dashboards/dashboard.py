@@ -20,7 +20,7 @@ from sklearn.preprocessing import PolynomialFeatures
 
 # Configure page
 st.set_page_config(
-    page_title="AEGIS - 24/7 Shielf",
+    page_title="AEGIS",
     page_icon="🚨",
     layout="wide",
     initial_sidebar_state="collapsed",

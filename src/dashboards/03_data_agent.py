@@ -25,7 +25,7 @@ SLEEP_TIME = 0.0  # Demo sleep time for spinners
 
 def main():
     st.set_page_config(
-        page_title="Data Agent Demo",
+        page_title="AEGIS Agent",
         layout="wide",
         initial_sidebar_state="collapsed",
     )
@@ -97,7 +97,7 @@ def main():
     st.markdown(
         """
     <div class="main-header">
-        <h1>🤖 Data Agent Demo</h1>
+        <h1>🤖 AEGIS Agent</h1>
     </div>
     """,
         unsafe_allow_html=True,
