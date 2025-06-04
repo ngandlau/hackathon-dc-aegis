@@ -276,3 +276,13 @@ don't use text dollar signs like '$' in your response.
         ],
     )
     return message.content[0].text  # type: ignore
+
+
+def standardize_value_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df_copy = df.copy()
+    value_columns = [col for col in df_copy.columns if col != "date"]
+    for col in value_columns:
+        df_copy[f"{col}"] = (
+            df_copy[col] - df_copy[col].min()
+        ) / (df_copy[col].max() - df_copy[col].min())  # fmt:skip
+    return df_copy
