@@ -1,11 +1,12 @@
 import re
+from typing import Union
 
 
 def extract_text_inside_xml_tags(
     text: str,
     tag: str,
     return_only_first_match: bool = False,
-) -> str | None | list[str]:
+) -> Union[str, None, list[str]]:
     """
     Extracts the text inside a XML-tag from a text.
 
