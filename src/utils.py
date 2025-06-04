@@ -1,5 +1,6 @@
 import base64
 from pathlib import Path
+from typing import Literal
 
 import anthropic
 import outlines
@@ -7,6 +8,8 @@ import pandas as pd  # type: ignore
 import requests  # type: ignore
 from dotenv import load_dotenv
 from matplotlib import pyplot as plt
+
+from src.llm_utils import extract_text_inside_xml_tags
 
 load_dotenv()
 
@@ -115,6 +118,22 @@ def call_claude(user_message: str) -> str:
     return response.content[0].text  # type: ignore
 
 
+def review_search_results(
+    search_results: list[dict],
+    user_query: str,
+) -> tuple[str, list[str]]:
+    """
+    Review search results and return a list of relevant dataset ids.
+    """
+    prompt = prompt_review_search_results(
+        simplified_search_results=search_results,
+        user_query=user_query,
+    )
+    answer = call_claude(prompt)
+    relevant_dataset_ids = extract_text_inside_xml_tags(answer, "id")
+    return answer, relevant_dataset_ids  # type: ignore
+
+
 def download_dataset(dataset_id: str) -> pd.DataFrame:
     """
     Download a dataset from the CDC API in CSV format.
@@ -153,6 +172,15 @@ def prompt_template_check_data_preview(dataset_preview: str, user_query: str) ->
     return ""
 
 
+def check_data_preview(
+    dataset_preview: str, user_query: str
+) -> tuple[str, Literal["yes", "no"]]:
+    prompt = prompt_template_check_data_preview(dataset_preview, user_query)
+    long_answer = call_claude(prompt)
+    short_answer = extract_text_inside_xml_tags(long_answer, "answer")  # type: ignore
+    return long_answer, short_answer  # type: ignore
+
+
 @outlines.prompt
 def prompt_template_prep_data(dataset_preview: str, user_query: str) -> str:
     """
@@ -177,6 +205,8 @@ def prompt_template_prep_data(dataset_preview: str, user_query: str) -> str:
     ```python
     # all executable code goes here
     ```
+
+    DO NOT WRITE ANY COMMENTS IN THE CODE BLOCK.
     """
     return ""
 
@@ -189,6 +219,12 @@ def strip_code_block(text: str) -> str:
     if body.startswith("python"):
         body = body[len("python") :].lstrip()
     return body
+
+
+def generate_preprocessing_code(dataset_preview: str, user_query: str) -> str:
+    prompt = prompt_template_prep_data(dataset_preview, user_query)
+    code = call_claude(prompt)
+    return strip_code_block(code)
 
 
 def execute_code_block(code: str, df: pd.DataFrame) -> pd.DataFrame:
